@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+}
+
+:root {
+  --ff-blue: #4444c4;
+  --ff-light-blue: #6464ff;
+  --ff-border: #8888ff;
+  --ff-text: #ffffff;
+  --ff-menu-bg: rgba(0, 0, 32, 0.95);
+  --menu-width: 240px;
+}
+
+body {
+  background: #000020;
+  color: var(--ff-text);
+  font-family: 'Press Start 2P', system-ui;
+  image-rendering: pixelated;
+  cursor: default;
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom cursor for interactive elements */
+a, button, [role="button"], .interactive {
+  cursor: pointer;
+  position: relative;
+}
+
+a:before, button:before, [role="button"]:before, .interactive:before {
+  content: '▶';
+  position: absolute;
+  left: -1rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+a:hover:before, button:hover:before, [role="button"]:hover:before, .interactive:hover:before {
+  opacity: 1;
+}
+
+.ff-window {
+  @apply relative border-4 rounded-lg p-4 bg-opacity-95;
+  background-color: var(--ff-blue);
+  border-color: var(--ff-border);
+  box-shadow: 0 0 0 4px var(--ff-light-blue);
+}
+
+.ff-menu {
+  @apply fixed top-0 left-0 h-screen p-4 overflow-y-auto;
+  width: var(--menu-width);
+  background-color: var(--ff-menu-bg);
+  border-right: 4px solid var(--ff-border);
+  box-shadow: 4px 0 0 0 var(--ff-light-blue);
+}
+
+.ff-menu-item {
+  @apply block w-full text-left px-4 py-2 transition-colors rounded;
+  color: var(--ff-text);
+}
+
+.ff-menu-item:hover, .ff-menu-item.active {
+  background-color: var(--ff-light-blue);
+}
+
+.ff-content {
+  margin-left: var(--menu-width);
+  min-height: 100vh;
+  padding: 1.5rem;
+}
+
+.ff-content-window {
+  @apply ff-window;
+}
+
+.pixel-transition {
+  @apply transition-all duration-300;
+  image-rendering: pixelated;
+}
+
+@keyframes pixel-fade {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.pixel-fade-in {
+  animation: pixel-fade 0.3s ease-out forwards;
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.typing-cursor::after {
+  content: '▊';
+  animation: cursor-blink 1s infinite;
+}
+
+.ff-button {
+  @apply ff-window flex items-center gap-2 hover:scale-105 active:scale-95 transition-transform;
+}
+
+/* Custom scrollbar for the menu */
+.ff-menu::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ff-menu::-webkit-scrollbar-track {
+  background: var(--ff-blue);
+}
+
+.ff-menu::-webkit-scrollbar-thumb {
+  background: var(--ff-light-blue);
+  border-radius: 4px;
+}
+
+.ff-menu::-webkit-scrollbar-thumb:hover {
+  background: var(--ff-border);
+}
